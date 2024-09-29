@@ -3,12 +3,20 @@ package com.ramonmoncao.courseProject.entities;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
+@Entity
+@Table(name = "tb_user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id //primary key definition
+	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto generation
 	private	Long id;
 	private String name;
 	private String email;
@@ -18,7 +26,7 @@ public class User implements Serializable {
 	public User() {
 		
 	}
-
+	
 	public User(Long id, String name, String email, String phone, String password) {
 		super();
 		this.id = id;
