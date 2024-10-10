@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.ramonmoncao.courseProject.entities.User;
 import com.ramonmoncao.courseProject.repositories.UserRepository;
+import com.ramonmoncao.courseProject.services.exceptions.ResourceNotFoundException;
 
 
 @Service //Service component to autowire
@@ -21,7 +22,7 @@ public class UserService {
 	}
 	public User findById(Long id) {
 		Optional<User> obj =  repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(()-> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
