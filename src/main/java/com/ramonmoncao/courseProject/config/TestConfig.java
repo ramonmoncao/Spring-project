@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.ramonmoncao.courseProject.entities.Category;
 import com.ramonmoncao.courseProject.entities.Order;
 import com.ramonmoncao.courseProject.entities.OrderItem;
+import com.ramonmoncao.courseProject.entities.Payment;
 import com.ramonmoncao.courseProject.entities.Product;
 import com.ramonmoncao.courseProject.entities.User;
 import com.ramonmoncao.courseProject.entities.enums.OrderStatus;
@@ -66,8 +67,8 @@ public class TestConfig implements CommandLineRunner{
 		p5.getCategories().add(cat2);
 		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 		
-		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.WAITING_PAYMENT); 
-		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), u2, OrderStatus.PAID); 
+		Order o1 = new Order(null, Instant.parse("2019-06-20T19:53:07Z"), u1, OrderStatus.PAID); 
+		Order o2 = new Order(null, Instant.parse("2019-07-21T03:42:10Z"), u2, OrderStatus.WAITING_PAYMENT); 
 		Order o3 = new Order(null, Instant.parse("2019-07-22T15:21:22Z"), u1, OrderStatus.CANCELED);
 		
 		userRepository.saveAll(Arrays.asList(u1,u2));
@@ -79,6 +80,11 @@ public class TestConfig implements CommandLineRunner{
 		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice()); 
 		
 		orderItemRepository.saveAll(Arrays.asList(oi1,oi2,oi3,oi4));
+		
+		Payment pay1 = new Payment(null,Instant.parse("2019-06-20T21:53:07Z"),o1);
+		o1.setPayment(pay1);
+		
+		orderRepository.save(o1);
 		
 	}
 	
