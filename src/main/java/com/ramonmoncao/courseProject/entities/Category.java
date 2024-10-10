@@ -1,12 +1,15 @@
 package com.ramonmoncao.courseProject.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "tb_category")
@@ -16,8 +19,11 @@ public class Category implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public Long id;
-	public String name;
+	private Long id;
+	private String name;
+	
+	@Transient
+	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
 	}
@@ -42,6 +48,10 @@ public class Category implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Set<Product> getProducts() {
+		return products;
 	}
 
 	@Override
@@ -69,6 +79,7 @@ public class Category implements Serializable{
 		}
 		return true;
 	}
-	
+
+
 	
 }
